@@ -2,7 +2,7 @@
   "autoload": {
     "psr-4": {
       "App\\": "app/",
-      "Core23E43R3WQ\\": "src/"
+      "Core\\": "src/"
     }
   }
 }
