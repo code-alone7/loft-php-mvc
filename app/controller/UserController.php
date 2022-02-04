@@ -24,6 +24,8 @@ class UserController extends \Core\Controller
             'name' => 'name',
         ]);
 
+        $user->save();
+
         return 'registrationPage';
     }
 }

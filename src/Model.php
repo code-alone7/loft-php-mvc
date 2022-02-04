@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Core\DB;
 use Core\exceptions\ModelException;
 use DateTime;
 
@@ -15,31 +16,15 @@ abstract class Model
 
     public function __construct(array $data)
     {
-        //append autoincrements
-        $autoincrements = array_filter(static::$fields, function($el){
+        // генерация автоинкреметнов (зачем я это сделал?)
+        /*$autoincrements = array_filter(static::$fields, function($el){
             return array_key_exists('autoincrement', $el);
         });
         foreach ($autoincrements as $name => $field){
             if(!array_key_exists($name, static::$iterators)) static::$iterators[$name] = 0;
             $data[$name] = ++static::$iterators[$name];
-        };
+        };*/
 
-        //append created_at
-        if(array_key_exists('created_at', static::$fields)){
-            $date = new DateTime();
-            $data['created_at'] = $date->getTimestamp();
-        }
-
-        $diff = count(array_diff_key($data, static::$fields)) + count(array_diff_key(static::$fields, $data));
-
-        if($diff!==0){
-            throw new ModelException('wrong fields');
-        }
-        /*for($data as $title => $value){
-            if(gettype($value) !== static::$fields[$title]){
-                return false;
-            }
-        }*/
         $this->values = $data;
     }
 
@@ -50,19 +35,88 @@ abstract class Model
         }
         return null;
     }
+    public function __set(string $name, $value): void
+    {
+        if(array_key_exists($name, static::$fields)){
+            $this->values[$name] = $value;
+        }
+    }
 
     public function save()
     {
+        // добавление даты создания
+        if(array_key_exists('created_at', static::$fields)){
+            $dateTime = new DateTime();
+            $this->values['created_at'] = $dateTime->getTimestamp();
+        }
 
+        // проверка на соответствие с полями
+        $withoutPrimary = array_filter(static::$fields, function($el){
+            return !(array_key_exists('primary_key', $el) && $el['primary_key']);
+        });
+
+        $diff
+            = count(array_diff_key($this->values, $withoutPrimary))
+            + count(array_diff_key($withoutPrimary, $this->values));
+
+        if($diff!==0){
+            throw new ModelException('wrong fields');
+        }
+
+        // проверка на соответствие с типами данных (не реализованно)
+        /*for($data as $title => $value){
+            if(gettype($value) !== static::$fields[$title]){
+                return false;
+            }
+        }*/
+
+        // составление запроса
+        $db = DB::getInstance();
+
+        $name = explode('\\', static::class);
+        $name = end($name).'s';
+        $name = static::$name ?? strtolower($name);
+
+        $fields = array_map(function($el){ return "'$el'"; }, array_keys($this->values));
+        $fields = implode(', ', $fields);
+
+        $values = array_map(function($el){ return "'$el'"; }, $this->values);
+        $values = implode(', ', $values);
+
+
+        $queryStr = "INSERT INTO {$name} ({$fields}) VALUES ({$values});";
+
+        echo '<pre>';
+        var_dump($queryStr);
+        echo '</pre>';
+
+        $db->exec($queryStr, __METHOD__);
+
+        $id = $db->lastInsertId();
+        $this->id = $id;
+
+        return $this;
     }
 
     public function update()
     {
-
+        // что мне делать?
     }
 
     public function delete()
     {
+        if(!$this->id) throw new ModelException('model is not event inserted');
 
+        $db = DB::getInstance();
+
+        $explode = explode('\\', self::class);
+        $name = end($explode).'s';
+
+        $queryStr = "DELETE FROM :name WHERE id=:id";
+
+        $db->exec($queryStr, __METHOD__, [
+            ':name' => static::$name ?? $name,
+            ':id' => $this->id,
+        ]);
     }
 }

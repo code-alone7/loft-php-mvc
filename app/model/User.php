@@ -7,7 +7,8 @@ class User extends \Core\Model
     static protected array $fields = [
         'id' => [
             'type' => 'int',
-            'autoincrement' => true,
+            'primary_key' => true,
+            'autoincrement' => true, // уже не используется
         ],
         'email' => [
             'type' => 'varchar'
