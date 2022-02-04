@@ -4,8 +4,8 @@ namespace App\controller;
 
 class HomeController extends \Core\Controller
 {
-    public function index(): string
+    public function indexAction(): string
     {
-        return '1234';
+        return 'home page';
     }
 }

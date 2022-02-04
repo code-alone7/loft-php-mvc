@@ -29,13 +29,11 @@ class Application
     function setRoutes()
     {
         $this->route->addDefault(function(){ return 'error 404'; });
-        $this->route->add('get', '/', function(){
-            return 'home';
-        });
+        $this->route->add('get', '/', 'HomeController');
 
         // user routes
         $this->route->add('get', '/user', 'UserController@indexAction');
-        $this->route->add('get', '/user/login', 'UserLogin@loginPageAction');
-        $this->route->add('get', '/user/registration', 'UserRegistration@registrationPageAction');
+        $this->route->add('get', '/user/login', 'UserController@loginPageAction');
+        $this->route->add('get', '/user/registration', 'UserController@registrationPageAction');
     }
 }
