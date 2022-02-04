@@ -6,22 +6,21 @@ use Core\exceptions\ModelException;
 
 abstract class Model
 {
-    private static array $fields = [];
-    private array $values;
-    private string $name;
+    static protected string|null $name = null;
+    static protected array $fields = [];
+    protected array $values;
 
     public function __construct(array $data)
     {
-        $keyDiff = array_diff_key(self::$fields, $data);
-        if(count($keyDiff)===0){
+        $diff = count(array_diff_key($data, static::$fields)) + count(array_diff_key(static::$fields, $data));
+        if($diff!==0){
             throw new ModelException('wrong fields');
         }
         /*for($data as $title => $value){
-            if(gettype($value) !== self::$fields[$title]){
+            if(gettype($value) !== static::$fields[$title]){
                 return false;
             }
         }*/
-
         $this->values = $data;
     }
 
