@@ -2,7 +2,7 @@
 
 namespace App\model;
 
-class User
+class User extends \Core\Model
 {
     static protected array $fields = [
         'id'=>'int',
