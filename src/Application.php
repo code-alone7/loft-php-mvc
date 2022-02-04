@@ -32,5 +32,10 @@ class Application
         $this->route->add('get', '/', function(){
             return 'home';
         });
+
+        // user routes
+        $this->route->add('get', '/user', 'UserController@indexAction');
+        $this->route->add('get', '/user/login', 'UserLogin@loginPageAction');
+        $this->route->add('get', '/user/registration', 'UserRegistration@registrationPageAction');
     }
 }
