@@ -5,10 +5,21 @@ namespace App\model;
 class User extends \Core\Model
 {
     static protected array $fields = [
-        'id'=>'int',
-        'email'=>'varchar',
-        'password'=>'varchar',
-        'name' =>'varchar',
-        'created_at'=>'int',
+        'id' => [
+            'type' => 'int',
+            'autoincrement' => true,
+        ],
+        'email' => [
+            'type' => 'varchar'
+        ],
+        'password' => [
+            'type' => 'varchar'
+        ],
+        'name' => [
+            'type' => 'varchar'
+        ],
+        'created_at' => [
+            'type' => 'int',
+        ],
     ];
 }

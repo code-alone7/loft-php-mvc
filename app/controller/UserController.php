@@ -2,6 +2,8 @@
 
 namespace App\controller;
 
+use App\model\User;
+
 class UserController extends \Core\Controller
 {
     public function indexAction(): string
@@ -9,13 +11,19 @@ class UserController extends \Core\Controller
         return 'user';
     }
 
-    public function registration(): string
+    public function loginPageAction(): string
     {
-        return 'registration';
+        return 'loginPage';
     }
 
-    public function login(): string
+    public function registrationPageAction(): string
     {
-        return 'login';
+        $user = new User([
+            'email' => '1234',
+            'password' => '1234',
+            'name' => 'name',
+        ]);
+
+        return 'registrationPage';
     }
 }
