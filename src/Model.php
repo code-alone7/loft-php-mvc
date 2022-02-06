@@ -77,11 +77,10 @@ abstract class Model
         $name = end($name).'s';
         $name = static::$name ?? strtolower($name);
 
-        $fields = array_map(function($el){ return "'$el'"; }, array_keys($this->values));
+        $fields = array_map(function($el){ return "`$el`"; }, array_keys($this->values));
         $fields = implode(', ', $fields);
 
-        $values = array_map(function($el){ return "'$el'"; }, $this->values);
-        $values = implode(', ', $values);
+        $values = implode(', ', $this->values);
 
 
         $queryStr = "INSERT INTO {$name} ({$fields}) VALUES ({$values});";

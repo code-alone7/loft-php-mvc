@@ -18,14 +18,6 @@ class UserController extends \Core\Controller
 
     public function registrationPageAction(): string
     {
-        $user = new User([
-            'email' => '1234',
-            'password' => '1234',
-            'name' => 'name',
-        ]);
-
-        $user->save();
-
         return 'registrationPage';
     }
 }
