@@ -3,6 +3,7 @@
 namespace App\controller;
 
 use App\model\User;
+use Core\View;
 
 class UserController extends \Core\Controller
 {
@@ -13,11 +14,11 @@ class UserController extends \Core\Controller
 
     public function loginPageAction(): string
     {
-        return 'loginPage';
+        return View::render('user.login');
     }
 
     public function registrationPageAction(): string
     {
-        return 'registrationPage';
+        return View::render('user.registration');
     }
 }
