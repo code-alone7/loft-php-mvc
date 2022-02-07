@@ -33,7 +33,7 @@ class Application
 
         // user routes
         $this->route->add('get', '/user', 'UserController@indexAction');
-        $this->route->add('get', '/user/login', 'UserController@loginPageAction');
-        $this->route->add('get', '/user/registration', 'UserController@registrationPageAction');
+        $this->route->add('get', '/login', 'UserController@loginPageAction');
+        $this->route->add('get', '/registration', 'UserController@registrationPageAction');
     }
 }
