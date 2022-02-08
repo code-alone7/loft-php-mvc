@@ -102,6 +102,23 @@ abstract class Model
         // что мне делать?
     }
 
+    public static function getById($id)
+    {
+        $name = explode('\\', static::class);
+        $name = end($name).'s';
+        $name = static::$name ?? strtolower($name);
+
+        $db = Db::getInstance();
+        $select = "SELECT * FROM $name WHERE id = $id";
+        $data = $db->fetchOne($select, __METHOD__);
+
+        if (!$data) {
+            return null;
+        }
+
+        return new static($data);
+    }
+
     public function delete()
     {
         if(!$this->id) throw new ModelException('model is not event inserted');
