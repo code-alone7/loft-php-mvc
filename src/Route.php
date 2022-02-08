@@ -77,7 +77,6 @@ class Route
         } else {
             $post = json_decode(file_get_contents('php://input'), true);
         }
-        $requestData = json_decode(file_get_contents('php://input'), true);
 
         return function($data = []) use ($route, $urlArguments, $post) {
             return $route["action"]($urlArguments, $post, $data);
