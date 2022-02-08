@@ -80,7 +80,8 @@ abstract class Model
         $fields = array_map(function($el){ return "`$el`"; }, array_keys($this->values));
         $fields = implode(', ', $fields);
 
-        $values = implode(', ', $this->values);
+        $values = array_map(function($el){ return "'$el'"; }, $this->values);
+        $values = implode(', ', $values);
 
 
         $queryStr = "INSERT INTO {$name} ({$fields}) VALUES ({$values});";
