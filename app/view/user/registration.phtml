@@ -18,14 +18,24 @@
                 <div class="logo header__logo">
                     <a href="/" class="logo__link">PHP-MVC</a>
                 </div>
-                <div class="auth header__auth">
-                    <ul class="auth__list">
-                        <li class="auth__el">
-                            <a href="/login" class="auth__link">Log In</a>
-                        </li>
-                        <li class="auth__el">
-                            <a href="/registration" class="auth__link">Registration</a>
-                        </li>
+
+                <div class="menu header__menu">
+                    <ul class="menu__list">
+                        <?php if(!\Core\Auth::user()){ ?>
+                            <li class="menu__el">
+                                <a href="/login" class="menu__link">Log In</a>
+                            </li>
+                            <li class="menu__el">
+                                <a href="/registration" class="menu__link">Registration</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="menu__el">
+                                <a href="/logout" class="menu__link">Log Out</a>
+                            </li>
+                            <li class="menu__el">
+                                <a href="/message/create" class="menu__link">Create Message</a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -34,7 +44,7 @@
         <div class="container container--blog">
             <main class="main">
                 <div class="auth-page">
-                    <h2 class="auth-page__header">Регистрация</h2>
+                    <h2 class="main__header">Регистрация</h2>
 
                     <form action="/registration" method="POST" class="auth-page__form form">
                         <div class="form__row">

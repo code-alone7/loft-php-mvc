@@ -16,6 +16,7 @@ class Application
     function run()
     {
         try {
+            session_start();
             $this->setRoutes();
             $url = parse_url($_SERVER['REQUEST_URI']);
             echo $this->route->getAction($_SERVER['REQUEST_METHOD'], $url['path'])([1,2,3],[1,2,3]);

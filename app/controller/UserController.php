@@ -3,6 +3,7 @@
 namespace App\controller;
 
 use App\model\User;
+use Core\Auth;
 use Core\View;
 
 class UserController extends \Core\Controller
@@ -26,6 +27,16 @@ class UserController extends \Core\Controller
     public function registrationPageAction(): string
     {
         return View::render('user.registration');
+    }
+
+    public function loginAction($urlArguments, $requestData): string
+    {
+        $result = Auth::login($requestData['email'], $requestData['password']);
+
+        if($result){
+            return 'удача';
+        }
+        return 'провал';
     }
 
     public function registrationAction($urlArguments, $requestData): string
