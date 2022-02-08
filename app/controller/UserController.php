@@ -12,6 +12,12 @@ class UserController extends \Core\Controller
         return 'user';
     }
 
+    public function userPageAction($urlArguments): string
+    {
+        $user = User::getById($urlArguments[0]);
+        return View::render('user.user-page', ['user' => $user]);
+    }
+
     public function loginPageAction(): string
     {
         return View::render('user.login');
@@ -22,8 +28,29 @@ class UserController extends \Core\Controller
         return View::render('user.registration');
     }
 
-    public function registrationAction($urlData = [], $requestData = []): string
+    public function registrationAction($urlArguments, $requestData): string
     {
-        return (string)count($requestData);
+        $password = $requestData['password'];
+
+        if(strlen('password') < 4){
+            return 'пароль слишком короткий';
+        }
+        if($password !== $requestData['password-repeat']){
+            return 'пароли не совпадают';
+        }
+
+        try{
+            var_dump($requestData);
+            $user = new User([
+                'email' => $requestData['email'],
+                'password' => $requestData['password'],
+                'name' => $requestData['name'],
+            ]);
+            $user->save();
+
+            return 'удача';
+        } catch (\Exeption $err) {
+            return $err;
+        }
     }
 }

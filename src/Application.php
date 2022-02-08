@@ -32,7 +32,7 @@ class Application
         $this->route->add('get', '/', 'HomeController');
 
         // user routes
-        $this->route->add('get', '/user', 'UserController@indexAction');
+        $this->route->add('get', '/user/##', 'UserController@userPageAction');
         $this->route->add('get', '/login', 'UserController@loginPageAction');
         $this->route->add('get', '/registration', 'UserController@registrationPageAction');
 
