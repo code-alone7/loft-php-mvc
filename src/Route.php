@@ -38,17 +38,38 @@ class Route
 
     function getAction(string $method, string $url) : callable
     {
+        // получение роутов определенного метода
         $filtered = array_filter($this->routes, function ($el) use ($method) {
-            return $el['method'] === $method;
+            return strtolower($el['method']) === strtolower($method);
         });
+        $urls = array_column($filtered, 'url');
 
-        $index = array_search($url, array_column($filtered, 'url'));
+        $arguments = [];
+        $route = current(
+            array_filter($filtered, function($el)use($url, &$arguments){
+                $match = true;
+                $explodedURL = explode('/', $url);
+                $explodedEL = explode('/', $el['url']);
 
-        if ($index === false) {
+                foreach($explodedURL as $i => $urlPart){
+                    if($explodedEL[$i] === '##') {
+                        $arguments[] = $urlPart;
+                        continue;
+                    }
+                    if($explodedEL[$i] !== $urlPart){
+                        $match = false;
+                        break;
+                    }
+                }
+                return $match;
+            })
+        );
+
+        if ($route === false) {
             if ($this->defaultAction === null) throw new RouteException("undefined route");
             else return $this->defaultAction;
         }
 
-        return $this->routes[$index]['action'];
+        return function() use ($route, $arguments) { return $route["action"]($arguments); };
     }
 }

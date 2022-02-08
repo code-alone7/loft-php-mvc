@@ -18,7 +18,7 @@ class Application
         try {
             $this->setRoutes();
             $url = parse_url($_SERVER['REQUEST_URI']);
-            echo $this->route->getAction('get', $url['path'])();
+            echo $this->route->getAction($_SERVER['REQUEST_METHOD'], $url['path'])();
         } catch (\Exception $e) {
             echo '<pre>';
             echo $e->getMessage();
