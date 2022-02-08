@@ -34,9 +34,12 @@ class UserController extends \Core\Controller
         $result = Auth::login($requestData['email'], $requestData['password']);
 
         if($result){
-            return 'удача';
+            return View::render('message', ['title' => 'Вы успешно авторизированны', 'text' => 'Авторизация']);
         }
-        return 'провал';
+        return View::render('message', [
+            'title' => 'Ошибка авторизации',
+            'text' => 'Во время авторизации произошла ошибка'
+        ]);
     }
 
     public function registrationAction($urlArguments, $requestData): string
@@ -44,10 +47,16 @@ class UserController extends \Core\Controller
         $password = $requestData['password'];
 
         if(strlen('password') < 4){
-            return 'пароль слишком короткий';
+            return View::render('message', [
+                'title' => 'Ошибка регистрации',
+                'text' => 'Пароль слишком короткий'
+            ]);
         }
         if($password !== $requestData['password-repeat']){
-            return 'пароли не совпадают';
+            return View::render('message', [
+                'title' => 'Ошибка регистрации',
+                'text' => 'Пароли не совпадают'
+            ]);
         }
 
         try{
@@ -59,9 +68,16 @@ class UserController extends \Core\Controller
             ]);
             $user->save();
 
-            return 'удача';
+            return View::render('message', [
+                'title' => 'Регистрация',
+                'text' => 'Регистрация прошла успешно',
+            ]);
+
         } catch (\Exeption $err) {
-            return $err;
+            return View::render('message', [
+                'title' => 'Ошибка регистрации',
+                'text' => 'Ошибка',
+            ]);
         }
     }
 }
