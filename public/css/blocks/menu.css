@@ -1,0 +1,14 @@
+.menu{
+    font-size: 12px;
+}
+
+.menu__list{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.menu__link{
+    font-weight: 600;
+}
