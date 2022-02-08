@@ -44,16 +44,16 @@ class Route
         });
         $urls = array_column($filtered, 'url');
 
-        $arguments = [];
+        $urlArguments = [];
         $route = current(
-            array_filter($filtered, function($el)use($url, &$arguments){
+            array_filter($filtered, function($el)use($url, &$urlArguments){
                 $match = true;
                 $explodedURL = explode('/', $url);
                 $explodedEL = explode('/', $el['url']);
 
                 foreach($explodedURL as $i => $urlPart){
                     if($explodedEL[$i] === '##') {
-                        $arguments[] = $urlPart;
+                        $urlArguments[] = $urlPart;
                         continue;
                     }
                     if($explodedEL[$i] !== $urlPart){
@@ -70,6 +70,10 @@ class Route
             else return $this->defaultAction;
         }
 
-        return function() use ($route, $arguments) { return $route["action"]($arguments); };
+        $requestData = json_decode(file_get_contents('php://input'), true);
+
+        return function($data = []) use ($route, $urlArguments, $requestData) {
+            return $route["action"]($urlArguments, $requestData, $data);
+        };
     }
 }
