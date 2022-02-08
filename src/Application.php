@@ -18,7 +18,7 @@ class Application
         try {
             $this->setRoutes();
             $url = parse_url($_SERVER['REQUEST_URI']);
-            echo $this->route->getAction($_SERVER['REQUEST_METHOD'], $url['path'])();
+            echo $this->route->getAction($_SERVER['REQUEST_METHOD'], $url['path'])([1,2,3],[1,2,3]);
         } catch (\Exception $e) {
             echo '<pre>';
             echo $e->getMessage();
@@ -35,5 +35,8 @@ class Application
         $this->route->add('get', '/user', 'UserController@indexAction');
         $this->route->add('get', '/login', 'UserController@loginPageAction');
         $this->route->add('get', '/registration', 'UserController@registrationPageAction');
+
+        $this->route->add('post', '/login', 'UserController@loginAction');
+        $this->route->add('post', '/registration', 'UserController@registrationAction');
     }
 }

@@ -15,13 +15,13 @@ class Route
             $exploded = explode('@', $action);
             $className = $exploded[0];
             $actionName = $exploded[1] ?? 'indexAction';
-            $className = "\\App\\controller\\" . ucfirst($className);
+            $className = "\\App\\controller\\" . $className;
 
             if(!class_exists($className)) throw new RouteException('non existing controller');
 
             $controller = new $className();
 
-            $action = function() use ($controller, $actionName) { return $controller->{$actionName}(); };
+            $action = function(...$args) use ($controller, $actionName) { return $controller->{$actionName}(...$args); };
         }
 
         $this->routes[] = [
@@ -70,10 +70,17 @@ class Route
             else return $this->defaultAction;
         }
 
+
+        if(!empty($_POST))
+        {
+            $post = $_POST;
+        } else {
+            $post = json_decode(file_get_contents('php://input'), true);
+        }
         $requestData = json_decode(file_get_contents('php://input'), true);
 
-        return function($data = []) use ($route, $urlArguments, $requestData) {
-            return $route["action"]($urlArguments, $requestData, $data);
+        return function($data = []) use ($route, $urlArguments, $post) {
+            return $route["action"]($urlArguments, $post, $data);
         };
     }
 }

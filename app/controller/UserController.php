@@ -21,4 +21,9 @@ class UserController extends \Core\Controller
     {
         return View::render('user.registration');
     }
+
+    public function registrationAction($urlData = [], $requestData = []): string
+    {
+        return (string)count($requestData);
+    }
 }
