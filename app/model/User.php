@@ -8,7 +8,6 @@ class User extends \Core\Model
         'id' => [
             'type' => 'int',
             'primary_key' => true,
-            'autoincrement' => true, // уже не используется
         ],
         'email' => [
             'type' => 'varchar'
