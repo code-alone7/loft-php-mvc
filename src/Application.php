@@ -44,5 +44,6 @@ class Application
         // message routes
 
         $this->route->add('get', '/message/create', 'MessageController@createPageAction');
+        $this->route->add('post', '/message/create', 'MessageController@createAction');
     }
 }
