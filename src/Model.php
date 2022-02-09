@@ -85,11 +85,6 @@ abstract class Model
 
 
         $queryStr = "INSERT INTO {$name} ({$fields}) VALUES ({$values});";
-
-        echo '<pre>';
-        var_dump($queryStr);
-        echo '</pre>';
-
         $db->exec($queryStr, __METHOD__);
 
         $id = $db->lastInsertId();
