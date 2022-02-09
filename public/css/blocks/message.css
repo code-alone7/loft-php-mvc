@@ -6,9 +6,21 @@
 .message__header{
     padding: 15px;
     border-bottom: black solid 1px;
+    display: flex;
+    flex-direction: row;
 }
 
 .message__user{
+    font-weight: 700;
+}
+
+.message__menu{
+    margin-left: auto;
+}
+
+.message__delete{
+    text-decoration: none;
+    color: red;
     font-weight: 600;
 }
 

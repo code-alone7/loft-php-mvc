@@ -43,27 +43,17 @@
             <div class="container container--blog">
                 <div class="blog">
                     <ul class="messages blog__messages">
-                        <li class="messages__item">
-                            <div class="message">
-                                <div class="message__card">
-                                    <div class="message__header">
-                                        <div class="message__user">Тестовый Юзер</div>
-                                    </div>
-                                    <div class="message__container">
-                                        <div class="message__content">
-                                            <p>Тщательные исследования конкурентов лишь добавляют фракционных разногласий и ограничены исключительно образом мышления. Являясь всего лишь частью общей картины, стремящиеся вытеснить традиционное производство, нанотехнологии представляют собой не что иное, как квинтэссенцию победы маркетинга над разумом и должны быть своевременно верифицированы. Равным образом, постоянное информационно-пропагандистское обеспечение нашей деятельности является качественно новой ступенью переосмысления внешнеэкономических политик. В частности, перспективное планирование напрямую зависит от системы массового участия.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
                         <?php foreach($messages as $message){ ?>
                             <li class="messages__item">
                                 <div class="message">
                                     <div class="message__card">
                                         <div class="message__header">
                                             <div class="message__user"><?php echo $message->user()->name ?></div>
+                                            <?php if($message->user()->id === \Core\Auth::user()->id || \Core\Auth::isAdmin()) ?>
+                                                <div class="message__menu">
+                                                    <a href="<?php echo getPath('message/delete/'.$message->id) ?>" class="message__delete">Удалить</a>
+                                                </div>
+                                            <?php ?>
                                         </div>
                                         <div class="message__container">
                                             <div class="message__content">

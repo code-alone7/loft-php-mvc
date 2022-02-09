@@ -41,4 +41,12 @@ class Auth
         }
         return null;
     }
+
+    public static function isAdmin(): bool
+    {
+        if($_SESSION['user']){
+            return in_array($_SESSION['user']->id, static::$admins);
+        }
+        return false;
+    }
 }
