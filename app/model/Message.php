@@ -5,9 +5,18 @@ namespace App\model;
 class Message extends \Core\Model
 {
     static protected array $fields = [
-        'id' => 'int',
-        'content' => 'text',
-        'user_id' => 'int',
-        'created_at' => 'int',
+        'id' => [
+            'type' => 'int',
+            'primary_key' => true,
+        ],
+        'content' => [
+            'type' => 'varchar'
+        ],
+        'user_id' => [
+            'type' => 'int',
+        ],
+        'created_at' => [
+            'type' => 'int',
+        ],
     ];
 }
