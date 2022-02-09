@@ -9,26 +9,6 @@ class Auth
 {
     public static array $admins = [1];
 
-    public static function addAdmin(int $id): bool
-    {
-        if(array_search($id, static::$admins)){
-            static::$admins[] = $id;
-            return true;
-        }
-        return false;
-    }
-
-    public static function removeAdmin($id): bool
-    {
-        $index = array_search($id, static::$admins);
-
-        if($index){
-            array_splice(static::$admins, $index, 1);
-            return true;
-        }
-        return false;
-    }
-
     public static function login(string $email, string $password): bool
     {
         $user = User::getByEmail($email);

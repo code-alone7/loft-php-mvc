@@ -68,13 +68,14 @@ class UserController extends \Core\Controller
         }
 
         try{
-            var_dump($requestData);
             $user = new User([
                 'email' => $requestData['email'],
                 'password' => $requestData['password'],
                 'name' => $requestData['name'],
             ]);
             $user->save();
+
+            Auth::authorize($user->id);
 
             return View::render('message', [
                 'title' => 'Регистрация',
