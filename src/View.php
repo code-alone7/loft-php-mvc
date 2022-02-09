@@ -9,7 +9,6 @@ class View
 
     public static function render(string $title, array $data = []): string
     {
-        extract($data);
         $titleParts = explode('.', $title);
         $fullPath = static::$templateDir;
         foreach ($titleParts as $part) {
@@ -17,6 +16,7 @@ class View
         }
         $fullPath .= '.phtml';
 
+        extract($data);
         ob_start();
         include $fullPath;
         return ob_get_clean();

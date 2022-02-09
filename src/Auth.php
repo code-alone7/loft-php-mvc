@@ -45,6 +45,10 @@ class Auth
         return true;
     }
 
+    public static function logout(){
+        $_SESSION['user'] = null;
+    }
+
     public static function authorize($user)
     {
         $_SESSION['user'] = $user;

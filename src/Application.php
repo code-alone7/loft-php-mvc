@@ -39,5 +39,6 @@ class Application
 
         $this->route->add('post', '/login', 'UserController@loginAction');
         $this->route->add('post', '/registration', 'UserController@registrationAction');
+        $this->route->add('get', '/logout', 'UserController@logoutAction');
     }
 }

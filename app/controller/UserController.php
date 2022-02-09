@@ -31,10 +31,18 @@ class UserController extends \Core\Controller
 
     public function loginAction($urlArguments, $requestData): string
     {
+        $user = User::getByEmail($requestData['email']);
+
+        if(!$user){
+            return View::render('message', [
+                'title' => 'Ошибка авторизации', 'text' => 'wrong email or password'
+            ]);
+        }
+
         $result = Auth::login($requestData['email'], $requestData['password']);
 
         if($result){
-            return View::render('message', ['title' => 'Вы успешно авторизированны', 'text' => 'Авторизация']);
+            return View::render('message', ['title' => 'Авторизация', 'text' => 'Вы успешно авторизированны']);
         }
         return View::render('message', [
             'title' => 'Ошибка авторизации',
@@ -79,5 +87,15 @@ class UserController extends \Core\Controller
                 'text' => 'Ошибка',
             ]);
         }
+    }
+
+    public function logoutAction(): string
+    {
+        Auth::logout();
+
+        return View::render('message', [
+            'title' => 'Выход',
+            'text' => 'Вы успешно вышли из аккаунта',
+        ]);
     }
 }
