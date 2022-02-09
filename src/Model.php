@@ -42,7 +42,7 @@ abstract class Model
         }
     }
 
-    public function save()
+    public function save(): static|false
     {
         // добавление даты создания
         if(array_key_exists('created_at', static::$fields)){
@@ -98,13 +98,13 @@ abstract class Model
         // что мне делать?
     }
 
-    public static function getById($id)
+    public static function getById($id): static|null
     {
         $name = explode('\\', static::class);
         $name = end($name).'s';
         $name = static::$name ?? strtolower($name);
 
-        $db = Db::getInstance();
+        $db = DB::getInstance();
         $select = "SELECT * FROM $name WHERE id = $id";
         $data = $db->fetchOne($select, __METHOD__);
 
