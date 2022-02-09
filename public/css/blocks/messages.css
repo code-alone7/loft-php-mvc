@@ -1,0 +1,10 @@
+.messages{
+    display: flex;
+    flex-direction: column;
+}
+.messages__item{
+    margin-bottom: 20px;
+}
+.messages__item:last-child{
+    margin-bottom: 0;
+}

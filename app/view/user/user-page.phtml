@@ -42,24 +42,26 @@
         </header>
 
         <div class="container container--user">
-            <main class="main">
-               <h2 class="main__header">Страница пользователя <?php echo $user->name ?></h2>
+            <section class="section">
+                <main class="main">
+                    <h2 class="section__header title">Страница пользователя <?php echo $user->name ?></h2>
 
-                <div class="user-data">
-                    <div class="user-data__row">
-                        <div class="user-data__cell">Имя</div>
-                        <div class="user-data__cell"><?php echo $user->name ?></div>
+                    <div class="user-data">
+                        <div class="user-data__row">
+                            <div class="user-data__cell">Имя</div>
+                            <div class="user-data__cell"><?php echo $user->name ?></div>
+                        </div>
+                        <div class="user-data__row">
+                            <div class="user-data__cell">Email</div>
+                            <div class="user-data__cell"><?php echo $user->email ?></div>
+                        </div>
+                        <div class="user-data__row">
+                            <div class="user-data__cell">Дата регистрации</div>
+                            <div class="user-data__cell"><?php echo $user->created_at ?></div>
+                        </div>
                     </div>
-                    <div class="user-data__row">
-                        <div class="user-data__cell">Email</div>
-                        <div class="user-data__cell"><?php echo $user->email ?></div>
-                    </div>
-                    <div class="user-data__row">
-                        <div class="user-data__cell">Дата регистрации</div>
-                        <div class="user-data__cell"><?php echo $user->created_at ?></div>
-                    </div>
-                </div>
-            </main>
+                </main>
+            </section>
         </div>
     </div>
 </div>

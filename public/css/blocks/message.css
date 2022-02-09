@@ -1,0 +1,17 @@
+.message__card{
+    background-color: #fff;
+    width: 100%;
+}
+
+.message__header{
+    padding: 15px;
+    border-bottom: black solid 1px;
+}
+
+.message__user{
+    font-weight: 600;
+}
+
+.message__container{
+    padding: 15px;
+}

@@ -4,7 +4,12 @@
 @import url('./blocks/header.css');
 @import url('./blocks/logo.css');
 @import url('./blocks/menu.css');
+@import url('./blocks/section.css');
+@import url('./blocks/title.css');
 @import url('./blocks/main.css');
 @import url('./blocks/auth-page.css');
 @import url('./blocks/form.css');
 @import url('./blocks/user-data.css');
+@import url('./blocks/message-page.css');
+@import url('./blocks/messages.css');
+@import url('./blocks/message.css');
