@@ -49,4 +49,9 @@ class Auth
         }
         return false;
     }
+
+    public static function authorized(): bool
+    {
+        return isset($_SESSION['user']);
+    }
 }

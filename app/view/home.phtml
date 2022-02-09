@@ -49,11 +49,11 @@
                                     <div class="message__card">
                                         <div class="message__header">
                                             <div class="message__user"><?php echo $message->user()->name ?></div>
-                                            <?php if($message->user()->id === \Core\Auth::user()->id || \Core\Auth::isAdmin()) ?>
+                                            <?php if(\Core\Auth::authorized() && ($message->user()->id === \Core\Auth::user()->id || \Core\Auth::isAdmin())){ ?>
                                                 <div class="message__menu">
                                                     <a href="<?php echo getPath('message/delete/'.$message->id) ?>" class="message__delete">Удалить</a>
                                                 </div>
-                                            <?php ?>
+                                            <?php } ?>
                                         </div>
                                         <div class="message__container">
                                             <div class="message__content">

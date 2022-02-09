@@ -75,7 +75,7 @@ class UserController extends \Core\Controller
             ]);
             $user->save();
 
-            Auth::authorize($user->id);
+            Auth::authorize($user);
 
             return View::render('message', [
                 'title' => 'Регистрация',
