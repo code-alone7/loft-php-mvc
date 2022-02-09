@@ -42,6 +42,25 @@ abstract class Model
         }
     }
 
+
+
+    public static function getById($id): static|null
+    {
+        $name = explode('\\', static::class);
+        $name = end($name).'s';
+        $name = static::$name ?? strtolower($name);
+
+        $db = DB::getInstance();
+        $select = "SELECT * FROM $name WHERE id = $id";
+        $data = $db->fetchOne($select, __METHOD__);
+
+        if (!$data) {
+            return null;
+        }
+
+        return new static($data);
+    }
+
     public function save(): static|false
     {
         // добавление даты создания
@@ -98,37 +117,22 @@ abstract class Model
         // что мне делать?
     }
 
-    public static function getById($id): static|null
-    {
-        $name = explode('\\', static::class);
-        $name = end($name).'s';
-        $name = static::$name ?? strtolower($name);
-
-        $db = DB::getInstance();
-        $select = "SELECT * FROM $name WHERE id = $id";
-        $data = $db->fetchOne($select, __METHOD__);
-
-        if (!$data) {
-            return null;
-        }
-
-        return new static($data);
-    }
-
     public function delete()
     {
         if(!$this->id) throw new ModelException('model is not event inserted');
 
         $db = DB::getInstance();
 
-        $explode = explode('\\', self::class);
-        $name = end($explode).'s';
+        $explode = explode('\\', static::class);
+        $name = $name ?? end($explode).'s';
+        $name = strtolower($name);
 
-        $queryStr = "DELETE FROM :name WHERE id=:id";
+        $id = $this->id;
+
+        $queryStr = "DELETE FROM $name WHERE id=:id";
 
         $db->exec($queryStr, __METHOD__, [
-            ':name' => static::$name ?? $name,
-            ':id' => $this->id,
+            ':id' => $this->id
         ]);
     }
 }
