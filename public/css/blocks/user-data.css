@@ -1,0 +1,25 @@
+.user-data{
+    display: table;
+}
+
+.user-data__row{
+    display: table-row;
+}
+
+.user-data__cell{
+    display: table-cell;
+    padding: 4px 8px;
+}
+
+.user-data__cell:first-child{
+    font-weight: 600;
+    padding-left: 0;
+}
+
+.user-data__cell:first-child::after{
+    content: ':';
+}
+
+.user-data__cell:last-child{
+    padding-right: 0;
+}

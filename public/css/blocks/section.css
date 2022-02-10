@@ -1,0 +1,8 @@
+.section {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.section__header{
+    margin-bottom: 30px;
+}

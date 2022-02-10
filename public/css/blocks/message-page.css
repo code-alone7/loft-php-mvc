@@ -1,0 +1,12 @@
+.message-page{
+    display: flex;
+    flex-direction: column;
+}
+
+.message-page__title{
+    margin-bottom: 60px;
+}
+
+.message-page__p{
+    margin-bottom: 50px;
+}

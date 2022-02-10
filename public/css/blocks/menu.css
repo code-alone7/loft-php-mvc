@@ -1,0 +1,24 @@
+.menu{
+    font-size: 20px;
+}
+
+.menu__list{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.menu__link{
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    -webkit-transition: color 150ms;
+    -moz-transition: color 150ms;
+    -ms-transition: color 150ms;
+    -o-transition: color 150ms;
+    transition: color 150ms;
+}
+.menu__link:hover{
+    color: yellowgreen;
+}
