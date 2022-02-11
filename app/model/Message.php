@@ -15,6 +15,9 @@ class Message extends \Core\Model
         'content' => [
             'type' => 'varchar'
         ],
+        'image' => [
+            'type' => 'file',
+        ],
         'user_id' => [
             'type' => 'int',
         ],

@@ -57,6 +57,9 @@
                                         </div>
                                         <div class="message__container">
                                             <div class="message__content">
+                                                <?php if($message->image){ ?>
+                                                    <img src="<?php echo getPath($message->image) ?>" alt="message_mage" class="message__image">
+                                                <?php } ?>
                                                 <p><?php echo $message->content ?></p>
                                             </div>
                                         </div>

@@ -13,23 +13,36 @@ class MessageController extends \Core\Controller
         return View::render('message.create');
     }
 
-    public function createAction($urlArguments, $requestData)
+    public function createAction($urlArguments, $requestData, $files)
     {
         $message = new Message($requestData);
-        $message->user_id = Auth::user()->id;
+        $user = Auth::user();
+        $image = $files['image'] ?? false;
+
+        $message->user_id = $user->id;
+        if($image && isset($image['tmp_name'])){
+            $type = explode('/', $image['type']);
+            if($type[0] !== 'image') throw new \Exception('file must be an image');
+
+            $imgName = rand(0, 1000000) . '.' . $type[1];
+            $imgNewPath
+                = ROOT_DIR . DIRECTORY_SEPARATOR
+                . 'public'.DIRECTORY_SEPARATOR.'images' . DIRECTORY_SEPARATOR
+                . $imgName;
+            $imgPublicPath = 'images/'.$imgName;
+
+            var_dump($imgPublicPath);
+
+            move_uploaded_file($image['tmp_name'], $imgNewPath);
+            $message->image = $imgPublicPath;
+        }
+
         $message->save();
 
-        if ($message->id) {
-            return View::render('message', [
-                'title' => 'Отправка сообщения',
-                'text' => 'Отправка сообщения прошла успешно',
-            ]);
-        } else {
-            return View::render('message', [
-                'title' => 'Отправка сообщения',
-                'text' => 'Ошбика при отправки сообщения',
-            ]);
-        }
+        return View::render('message', [
+            'title' => 'Отправка сообщения',
+            'text' => 'Отправка сообщения прошла успешно',
+        ]);
     }
 
     public function deleteAction($urlArguments)

@@ -71,15 +71,15 @@ class Route
         }
 
 
-        if(!empty($_POST))
+        /*if(!empty($_POST))
         {
             $post = $_POST;
         } else {
             $post = json_decode(file_get_contents('php://input'), true);
-        }
+        }*/
 
-        return function($data = []) use ($route, $urlArguments, $post) {
-            return $route["action"]($urlArguments, $post, $data);
+        return function() use ($route, $urlArguments) {
+            return $route["action"]($urlArguments, $_POST, $_FILES);
         };
     }
 }

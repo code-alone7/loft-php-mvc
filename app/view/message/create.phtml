@@ -46,12 +46,21 @@
                 <main class="main">
                     <h2 class="section__header title">Авторизация</h2>
 
-                    <form action="/message/create" method="POST" class="form">
+                    <form enctype="multipart/form-data" action="/message/create" method="POST" class="form">
                         <div class="form__row">
                             <div class="form__cell">
                                 <label class="form__label">
                                     <div class="form__cell-title">Текст:</div>
                                     <textarea name="content" class="form__input form__input--textarea"></textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <div class="form__cell-title">Текст:</div>
+                                    <input type="file" name="image" class="form__file" id="img">
                                 </label>
                             </div>
                         </div>

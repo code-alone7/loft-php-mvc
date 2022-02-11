@@ -27,3 +27,10 @@
 .message__container{
     padding: 15px;
 }
+
+.message__image{
+    float: left;
+    max-width: 100px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}

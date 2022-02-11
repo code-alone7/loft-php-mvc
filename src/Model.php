@@ -70,13 +70,13 @@ abstract class Model
         }
 
         // проверка на соответствие с полями
-        $withoutPrimary = array_filter(static::$fields, function($el){
+        $filteredFields = array_filter(static::$fields, function($el){
             return !(array_key_exists('primary_key', $el) && $el['primary_key']);
         });
 
         $diff
-            = count(array_diff_key($this->values, $withoutPrimary))
-            + count(array_diff_key($withoutPrimary, $this->values));
+            = count(array_diff_key($this->values, static::$fields))
+            + count(array_diff_key($filteredFields, $this->values));
 
         if($diff!==0){
             throw new ModelException('wrong fields');
