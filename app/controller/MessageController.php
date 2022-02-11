@@ -5,6 +5,7 @@ namespace App\controller;
 use App\model\Message;
 use Core\Auth;
 use Core\View;
+use Intervention\Image\ImageManagerStatic as IImage;
 
 class MessageController extends \Core\Controller
 {
@@ -31,9 +32,20 @@ class MessageController extends \Core\Controller
                 . $imgName;
             $imgPublicPath = 'images/'.$imgName;
 
-            var_dump($imgPublicPath);
+            $iImage = IImage::make($image['tmp_name']);
+            $iImage->resize($iImage->width() <= 500 ? 500 : 1500, null, function($img){
+                    $img->aspectRatio();
+                })
+                ->text('WATERMARKED',$iImage->width()/2,$iImage->height()/2, function($font){
+                    $font->file(ROOT_DIR . DIRECTORY_SEPARATOR . 'public/fonts/Rowdies-Bold.ttf');
+                    $font->size(40);
+                    $font->color([40, 40, 40, 0.5]);
+                    $font->align('center');
+                    $font->valign('center');
+                    $font->angle(45);
+                })
+                ->save($imgNewPath);
 
-            move_uploaded_file($image['tmp_name'], $imgNewPath);
             $message->image = $imgPublicPath;
         }
 
@@ -50,6 +62,9 @@ class MessageController extends \Core\Controller
         $message = Message::getById($urlArguments[0]);
 
         if($message){
+            if(isset($message->image)){
+                unlink(ROOT_DIR . DIRECTORY_SEPARATOR . $message->image);
+            }
             $message->delete();
 
             return View::render('message', [
