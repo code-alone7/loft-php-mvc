@@ -11,7 +11,7 @@ class MessageController extends \Core\Controller
 {
     public function createPageAction()
     {
-        return View::render('message.create');
+        return self::$view->render('message.create');
     }
 
     public function createAction($urlArguments, $requestData, $files)
@@ -51,7 +51,7 @@ class MessageController extends \Core\Controller
 
         $message->save();
 
-        return View::render('message', [
+        return self::$view->render('message', [
             'title' => 'Отправка сообщения',
             'text' => 'Отправка сообщения прошла успешно',
         ]);
@@ -67,12 +67,12 @@ class MessageController extends \Core\Controller
             }
             $message->delete();
 
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Удаление сообщения',
                 'text' => 'Удаление прошло успешно',
             ]);
         }
-        return View::render('message', [
+        return self::$view->render('message', [
             'title' => 'Удаление сообщения',
             'text' => 'Ошибка удаления',
         ]);
