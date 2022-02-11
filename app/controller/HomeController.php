@@ -11,6 +11,6 @@ class HomeController extends \Core\Controller
     {
         $messages = Message::get(20);
 
-        return View::render('home', ['messages' => $messages]);
+        return self::$view->render('home', ['messages' => $messages]);
     }
 }

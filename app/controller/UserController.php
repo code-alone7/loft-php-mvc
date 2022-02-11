@@ -4,7 +4,6 @@ namespace App\controller;
 
 use App\model\User;
 use Core\Auth;
-use Core\View;
 
 class UserController extends \Core\Controller
 {
@@ -16,17 +15,17 @@ class UserController extends \Core\Controller
     public function userPageAction($urlArguments): string
     {
         $user = User::getById($urlArguments[0]);
-        return View::render('user.user-page', ['user' => $user]);
+        return self::$view->render('user.user-page', ['user' => $user]);
     }
 
     public function loginPageAction(): string
     {
-        return View::render('user.login');
+        return self::$view->render('user.login');
     }
 
     public function registrationPageAction(): string
     {
-        return View::render('user.registration');
+        return self::$view->render('user.registration');
     }
 
     public function loginAction($urlArguments, $requestData): string
@@ -34,7 +33,7 @@ class UserController extends \Core\Controller
         $user = User::getByEmail($requestData['email']);
 
         if(!$user){
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Ошибка авторизации', 'text' => 'wrong email or password'
             ]);
         }
@@ -42,9 +41,9 @@ class UserController extends \Core\Controller
         $result = Auth::login($requestData['email'], $requestData['password']);
 
         if($result){
-            return View::render('message', ['title' => 'Авторизация', 'text' => 'Вы успешно авторизированны']);
+            return self::$view->render('message', ['title' => 'Авторизация', 'text' => 'Вы успешно авторизированны']);
         }
-        return View::render('message', [
+        return self::$view->render('message', [
             'title' => 'Ошибка авторизации',
             'text' => 'Во время авторизации произошла ошибка'
         ]);
@@ -55,13 +54,13 @@ class UserController extends \Core\Controller
         $password = $requestData['password'];
 
         if(strlen('password') < 4){
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Ошибка регистрации',
                 'text' => 'Пароль слишком короткий'
             ]);
         }
         if($password !== $requestData['password-repeat']){
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Ошибка регистрации',
                 'text' => 'Пароли не совпадают'
             ]);
@@ -77,13 +76,13 @@ class UserController extends \Core\Controller
 
             Auth::authorize($user);
 
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Регистрация',
                 'text' => 'Регистрация прошла успешно',
             ]);
 
         } catch (\Exeption $err) {
-            return View::render('message', [
+            return self::$view->render('message', [
                 'title' => 'Ошибка регистрации',
                 'text' => 'Ошибка',
             ]);
@@ -94,7 +93,7 @@ class UserController extends \Core\Controller
     {
         Auth::logout();
 
-        return View::render('message', [
+        return self::$view->render('message', [
             'title' => 'Выход',
             'text' => 'Вы успешно вышли из аккаунта',
         ]);

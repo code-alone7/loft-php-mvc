@@ -2,15 +2,18 @@
 
 namespace Core;
 
-class View
+class View extends AView
 {
-    public static string $templateDir = TEMPLATE_DIR;
+    public function __construct(string $templateDir)
+    {
+        $this->templateDir = $templateDir;
+    }
 
-
-    public static function render(string $title, array $data = []): string
+    public function render(string $title, array $data = []): string
     {
         $titleParts = explode('.', $title);
-        $fullPath = static::$templateDir;
+        $fullPath = $this->templateDir;
+
         foreach ($titleParts as $part) {
             $fullPath .= DIRECTORY_SEPARATOR . $part;
         }
