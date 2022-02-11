@@ -4,5 +4,8 @@
       "App\\": "app/",
       "Core\\": "src/"
     }
+  },
+  "require": {
+    "intervention/image": "^2.7"
   }
 }
