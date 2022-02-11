@@ -62,8 +62,8 @@ class MessageController extends \Core\Controller
         $message = Message::getById($urlArguments[0]);
 
         if($message){
-            if(isset($message->image)){
-                unlink(ROOT_DIR . DIRECTORY_SEPARATOR . $message->image);
+            if($message->image){
+                unlink($message->image);
             }
             $message->delete();
 
