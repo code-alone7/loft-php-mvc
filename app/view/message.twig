@@ -1,0 +1,17 @@
+{% extends 'layout/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block mainContent %}
+    <div class="container">
+        <section class="section">
+            <main class="main">
+                <div class="message-page">
+                    <h2 class="message-page__title title">{{ title }}</h2>
+                    <p class="message-page__p">{{ text }}</p>
+                    <p class="message-page__link-p"><a href="/">Вернуться на главную</a></p>
+                </div>
+            </main>
+        </section>
+    </div>
+{% endblock %}

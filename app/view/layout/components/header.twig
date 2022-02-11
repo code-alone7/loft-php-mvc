@@ -1,0 +1,26 @@
+<header class="header">
+    <div class="container header__container">
+        <div class="logo header__logo">
+            <a href="/" class="logo__link">PHP-MVC</a>
+        </div>
+        <div class="menu header__menu">
+            <ul class="menu__list">
+                {% if auth %}
+                    <li class="menu__el">
+                        <a href="/login" class="menu__link">Log In</a>
+                    </li>
+                    <li class="menu__el">
+                        <a href="/registration" class="menu__link">Registration</a>
+                    </li>
+                {% else %}
+                    <li class="menu__el">
+                        <a href="/logout" class="menu__link">Log Out</a>
+                    </li>
+                    <li class="menu__el">
+                        <a href="/message/create" class="menu__link">Create Message</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</header>

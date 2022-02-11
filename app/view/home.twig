@@ -1,0 +1,36 @@
+{% extends 'layout/main.twig' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block mainContent %}
+    <div class="container container--blog">
+        <div class="blog">
+            <ul class="messages blog__messages">
+                {% for message in messages %}
+                    <li class="messages__item">
+                        <div class="message">
+                            <div class="message__card">
+                                <div class="message__header">
+                                    <div class="message__user">{{ message->user()->name }}</div>
+                                    {% if auth and (auth->id == message->user()->id or auth->admin) %}
+                                        <div class="message__menu">
+                                            <a href="{{ getPath('message/delete/'.$message->id) }}" class="message__delete">Удалить</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="message__container">
+                                    <div class="message__content">
+                                        {% if message->image %}
+                                            <img src="{{ getPath($message->image) }}" alt="message_mage" class="message__image">
+                                        {% endif %}
+                                        <p>{{ message->content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
