@@ -17,6 +17,7 @@ class Message extends \Core\Model
         ],
         'image' => [
             'type' => 'file',
+            'is_not_required' => true,
         ],
         'user_id' => [
             'type' => 'int',
