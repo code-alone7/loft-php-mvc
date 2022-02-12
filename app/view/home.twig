@@ -15,7 +15,7 @@
                                     <div class="message__user">{{ message.user.name }}</div>
                                     {% if auth and (auth.id == message.user().id or isAdmin) %}
                                         <div class="message__menu">
-                                            <a href="{{ 'message/delete/'.message.id }}" class="message__delete">Удалить</a>
+                                            <a href="{{ "message/delete/" ~ message.id }}" class="message__delete">Удалить</a>
                                         </div>
                                     {% endif %}
                                 </div>

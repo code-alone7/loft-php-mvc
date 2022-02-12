@@ -76,7 +76,10 @@ abstract class Model
 
         // проверка на соответствие с полями
         $filteredFields = array_filter(static::$fields, function($el){
-            return !(array_key_exists('primary_key', $el) && $el['primary_key']);
+            $isPrimary = array_key_exists('primary_key', $el) && $el['primary_key'];
+            $isNotRequired = array_key_exists('is_not_required', $el) && $el['is_not_required'];
+
+            return !($isPrimary || $isNotRequired);
         });
 
         $diff

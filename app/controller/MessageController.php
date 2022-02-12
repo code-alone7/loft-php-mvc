@@ -21,7 +21,7 @@ class MessageController extends \Core\Controller
         $image = $files['image'] ?? false;
 
         $message->user_id = $user->id;
-        if($image && isset($image['tmp_name'])){
+        if($image && !empty($image['tmp_name'])){
             $type = explode('/', $image['type']);
             if($type[0] !== 'image') throw new \Exception('file must be an image');
 
