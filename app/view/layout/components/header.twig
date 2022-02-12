@@ -5,7 +5,7 @@
         </div>
         <div class="menu header__menu">
             <ul class="menu__list">
-                {% if auth %}
+                {% if not auth %}
                     <li class="menu__el">
                         <a href="/login" class="menu__link">Log In</a>
                     </li>
