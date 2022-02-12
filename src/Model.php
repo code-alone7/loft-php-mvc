@@ -28,6 +28,11 @@ abstract class Model
         $this->values = $data;
     }
 
+    public function __isset(string $name): bool
+    {
+        return array_key_exists($name, $this->values);
+    }
+
     public function __get(string $name)
     {
         if(array_key_exists($name, $this->values)){

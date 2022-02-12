@@ -1,0 +1,28 @@
+{% extends 'layout/main.twig' %}
+
+{% block title %}Страница пользователя {{ user->name }}{% endblock %}
+
+{% block mainContent %}
+    <div class="container container--user">
+        <section class="section">
+            <main class="main">
+                <h2 class="section__header title">Страница пользователя $user->name</h2>
+
+                <div class="user-data">
+                    <div class="user-data__row">
+                        <div class="user-data__cell">Имя</div>
+                        <div class="user-data__cell">{{ $user->name }}</div>
+                    </div>
+                    <div class="user-data__row">
+                        <div class="user-data__cell">Email</div>
+                        <div class="user-data__cell">{{ $user->email }}</div>
+                    </div>
+                    <div class="user-data__row">
+                        <div class="user-data__cell">Дата регистрации</div>
+                        <div class="user-data__cell">{{ $user->created_at }}</div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </div>
+{% endblock %}

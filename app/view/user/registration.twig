@@ -1,0 +1,58 @@
+{% extends 'layout/main.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block mainContent %}
+    <div class="container container--blog">
+        <section class="section">
+            <main class="main">
+                <div class="auth-page">
+                    <h2 class="section__header title">Регистрация</h2>
+
+                    <form action="/registration" method="POST" class="auth-page__form form">
+                        <div class="form__row">
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <div class="form__cell-title">Email:</div>
+                                    <input type="text" name="email" class="form__input">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <div class="form__cell-title">Пароль:</div>
+                                    <input type="text" name="password" class="form__input">
+                                </label>
+                            </div>
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <div class="form__cell-title">Повторить пароль:</div>
+                                    <input type="text" name="password-repeat" class="form__input">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <div class="form__cell-title">Имя:</div>
+                                    <input type="text" name="name" class="form__input">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__cell">
+                                <label class="form__label">
+                                    <button class="form__button button" type="submit">Регистрация</button>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </section>
+    </div>
+{% endblock %}

@@ -12,7 +12,7 @@ class Application
     public function __construct()
     {
         $this->route = new Route();
-        Controller::setView(new View(TEMPLATE_DIR));
+        Controller::setView(new TwView(TEMPLATE_DIR));
     }
 
     function run()
