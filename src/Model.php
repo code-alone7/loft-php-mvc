@@ -12,7 +12,7 @@ abstract class Model
     static protected array $fields = [];
     static protected array $iterators = [];
 
-    protected array $values;
+    protected array $values = [];
 
     public function __construct(array $data)
     {
