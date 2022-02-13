@@ -1,7 +1,8 @@
 <?php
 include_once '../src/config.php';
+include_once '../vendor/autoload.php';
+include_once '../database/eloquent/init.php';
 
-include '../vendor/autoload.php';
 
 //helper includes
 include_once('../src/helpers/getPath.php');

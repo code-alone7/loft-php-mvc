@@ -16,6 +16,7 @@ class TwView extends AView
         $loader = new TwLoader($templateDir);
 
         $this->twig = new TwEnv($loader, ['debug' => true]);
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
     }
 
     public function render(string $title, array $data = []): string

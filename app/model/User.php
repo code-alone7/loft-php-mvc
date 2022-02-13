@@ -2,41 +2,23 @@
 
 namespace App\model;
 
-use Core\DB;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends \Core\Model
+class User extends Model
 {
-    protected static array $fields = [
-        'id' => [
-            'type' => 'int',
-            'primary_key' => true,
-        ],
-        'email' => [
-            'type' => 'varchar'
-        ],
-        'password' => [
-            'type' => 'varchar'
-        ],
-        'name' => [
-            'type' => 'varchar'
-        ],
-        'created_at' => [
-            'type' => 'int',
-        ],
+    protected $fillable = [
+        'email',
+        'password',
+        'name',
     ];
 
     public static function getByEmail($email)
     {
-        $db = DB::getInstance();
-        $select = "SELECT * FROM users WHERE `email` = :email";
-        $data = $db->fetchOne($select, __METHOD__, [
-            ':email' => $email
-        ]);
+        return self::where('email', $email)->first();
+    }
 
-        if (!$data) {
-            return null;
-        }
-
-        return new self($data);
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

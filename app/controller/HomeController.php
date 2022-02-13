@@ -9,7 +9,7 @@ class HomeController extends \Core\Controller
 {
     public function indexAction(): string
     {
-        $messages = Message::get(20 );
+        $messages = Message::take(20)->orderBy('created_at', 'desc')->get();
 
         return self::$view->render('home', ['messages' => $messages, 'test' => $messages[0]]);
     }

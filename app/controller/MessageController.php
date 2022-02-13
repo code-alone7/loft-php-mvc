@@ -17,10 +17,10 @@ class MessageController extends \Core\Controller
     public function createAction($urlArguments, $requestData, $files)
     {
         $message = new Message($requestData);
-        $user = Auth::user();
         $image = $files['image'] ?? false;
 
-        $message->user_id = $user->id;
+        echo '12341234';
+
         if($image && !empty($image['tmp_name'])){
             $type = explode('/', $image['type']);
             if($type[0] !== 'image') throw new \Exception('file must be an image');
@@ -47,9 +47,11 @@ class MessageController extends \Core\Controller
                 ->save($imgNewPath);
 
             $message->image = $imgPublicPath;
+            var_dump($message->image);
         }
 
-        $message->save();
+
+        Auth::user()->messages()->save($message);
 
         return self::$view->render('message', [
             'title' => 'Отправка сообщения',
@@ -59,7 +61,7 @@ class MessageController extends \Core\Controller
 
     public function deleteAction($urlArguments)
     {
-        $message = Message::getById($urlArguments[0]);
+        $message = Message::find($urlArguments[0]);
 
         if($message){
             if($message->image){
